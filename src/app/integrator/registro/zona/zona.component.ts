@@ -5,7 +5,6 @@ import { Paciente } from 'app/models/Paciente';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Zona } from 'app/models/Zona';
 import { UbigeoService } from '../../../services/ubigeo.service';
-import { UsuarioService } from 'app/services/Usuario.service';
 import  Swal from 'sweetalert2';
 
 @Component({
