@@ -1,4 +1,8 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule, } from '@angular/common';
+import { BrowserModule  } from '@angular/platform-browser';
+import { Routes, RouterModule } from '@angular/router';
+
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PacienteComponent } from './registro/paciente/paciente.component';
@@ -23,4 +27,18 @@ export const IntegratorRoutes: Routes = [
     
     //{ path: 'upgrade',        component: UpgradeComponent }
 ];
+
+@NgModule({
+    imports: [
+      CommonModule,
+      BrowserModule,
+      RouterModule.forRoot(IntegratorRoutes,{
+         useHash: false
+      })
+    ],
+    exports: [
+    ],
+  })
+
+  export class IntegratorRoutingModule { }
 

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+ 
+
 import {
     MatButtonModule,
     MatInputModule,
@@ -35,7 +37,8 @@ const MaterialComponents =
 
 @NgModule({  
   imports: [
-    MaterialComponents
+    MaterialComponents,
+    FormsModule
   ],
   exports:[
     MaterialComponents

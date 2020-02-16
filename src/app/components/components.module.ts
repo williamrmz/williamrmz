@@ -10,6 +10,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
   imports: [
     CommonModule,
     RouterModule,
+    
   ],
   declarations: [
     FooterComponent,
