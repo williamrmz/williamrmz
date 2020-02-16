@@ -1,0 +1,45 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-10">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Usuarios</h4>
+                      <p class="card-category">Liste de usuarios registrados</p>
+                  </div>
+                  <div class="col-md-12">
+                    
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table" >
+                              <thead class=" text-primary">
+                                  <th>DNI</th>
+                                  <th>NOMBRE</th>
+                                  <th>EMAIL</th>
+                                  <th>ESTADO</th>
+                                  <th>TIPO</th>
+                                  <th>EDITAR</th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor= "let usuario of usuarios" >
+                                      <td>{{usuario.dni_usuario}}</td>
+                                      <td>{{usuario.nombre}}</td>
+                                      <td>{{usuario.email}}</td>
+                                      <td>{{usuario.estado}}</td>
+                                      <td>{{usuario.tipo}}</td>
+                                      <td>
+                                        <button mat-raised-button type="button" matTooltip="Editar" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm">
+                                          <i class="material-icons">settings</i>
+                                        </button> 
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

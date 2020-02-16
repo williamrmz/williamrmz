@@ -1,0 +1,43 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-10">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Zonas</h4>
+                      <p class="card-category">Liste de zonas registradas</p>
+                  </div>
+                  <div class="col-md-12">
+                    
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table" >
+                              <thead class=" text-primary">
+                                  <th>ZONA</th>
+                                  <th>DISTRITO</th>
+                                  <th>PROVINCIA</th>
+                                  <th>DEPARTAMENTO</th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor= "let zona of zonas" >
+                                   <!-- XDDD <app-primerexamen [paciente]="paciente.nombre"> </app-primerexamen> -->
+                                      <td>
+                                        {{zona.nombrezona}}
+                                        <button mat-raised-button (click)="editarZona(zona)" type="button" matTooltip="Editar" [matTooltipPosition]="'above'" class="btn btn-primary btn-link btn-sm">
+                                          <i class="material-icons">edit</i>
+                                        </button>                                        
+                                      </td>
+                                      <td>{{zona.nombredis}}</td>
+                                      <td>{{zona.nombrepro}}</td>
+                                      <td>{{zona.nombredepa}}</td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

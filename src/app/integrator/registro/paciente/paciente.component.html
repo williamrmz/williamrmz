@@ -1,0 +1,216 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-10">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Registro de Paciente</h4>
+                      <p class="card-category"></p>
+                  </div>                  
+                  <div class="col-md-18">
+                    <form [formGroup]="pacienteForm" (ngSubmit)="registrarPaciente(pacienteForm.value)"> 
+                    <div class="places-buttons">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto text-center">
+                                <h4 class="card-title">
+                                    <p class="category"></p>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-9 ml-auto mr-auto" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Departamento</mat-label>
+                                            <mat-select  *ngIf="valorDepartamento == 0" [(value)]="valorDepartamento" (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa" >
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>    
+
+                                            <mat-select *ngIf="valorDepartamento > 0" [(value)]="valorDepartamento"  (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa">
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>                    
+                                            
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Provincia</mat-label>
+                                            <mat-select *ngIf="valorProvincia == 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+                                            
+                                            <mat-select *ngIf="valorProvincia > 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-3">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Distrito</mat-label>
+                                            <mat-select *ngIf="valorDistrito == 0"  [(value)]="valorDistrito" (selectionChange)="cargarzonas()">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+
+                                            <mat-select *ngIf="valorDistrito > 0" [(value)]="valorDistrito" (selectionChange)="cargarzonas()">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+
+
+                                    <div class="col-md-3">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Zona</mat-label>
+                                            <mat-select *ngIf="valorZona == 0"  [(value)]="valorZona" (selectionChange)="guardarzona()" formControlName="idzona">
+                                                <mat-option *ngFor="let zona of zonas" [(value)]="zona.idzona" >
+                                                    {{zona.nombrezona}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                            <mat-select *ngIf="valorZona > 0"  [(value)]="valorZona" (selectionChange)="guardarzona()" formControlName="idzona">
+                                                <mat-option *ngFor="let zona of zonas" [(value)]="zona.idzona" >
+                                                    {{zona.nombrezona}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+
+
+                  <div class="card-body   container" >
+                    
+                      <div class="row  ml-auto mr-auto xd" > <!-- inicio de celda 1-->                
+                        <div class="col-md-3  "> <!-- inicio de columna 10-->
+                          <div class="row-md-3">
+                              <mat-form-field appearance="outline" class="example-full-width" >
+                                <mat-label>DNI</mat-label>
+                                <input matInput required formControlName="dni_paciente" type="number"  maxlength="8">
+                              </mat-form-field>
+                          </div>
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>NOMBRE</mat-label>
+                              <input matInput  type="text" required formControlName="nombre" oninput="this.value = this.value.toUpperCase()">
+                            </mat-form-field>
+                          </div>
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>APELLIDO</mat-label>
+                              <input matInput  type="text" required formControlName="apellido" oninput="this.value = this.value.toUpperCase()">
+                            </mat-form-field>                            
+                          </div>
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>DIRECCIÓN</mat-label>
+                              <input matInput  type="text" required formControlName="domicilio" oninput="this.value = this.value.toUpperCase()">
+                            </mat-form-field>                            
+                          </div>
+                        </div> <!-- termino de columna 10-->
+
+
+                       
+                         <div class="col-md-3  ml-auto mr-auto"> <!-- inicio de columna 11-->
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>SEGURO</mat-label>
+                                        <mat-select  formControlName="seguro">
+                                            <mat-option value="NINGUNO">NINGUNO</mat-option>
+                                            <mat-option value="SIS">SIS</mat-option>
+                                            <mat-option value="ESSALUD">ESSALUD</mat-option>
+                                            <mat-option value="PACIFICO">PACIFICO</mat-option>
+                                            <mat-option value="RIMAC">RIMAC</mat-option>
+                                            <mat-option value="OTRO">OTRO</mat-option>
+                                        </mat-select> 
+                                </mat-form-field>
+                            </div >                        
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>RELIGIÓN</mat-label>
+                                        <mat-select  formControlName="religion">
+                                            <mat-option value="NINGUNA">NINGUNA</mat-option>
+                                            <mat-option value="CATÓLICA">CATÓLICA</mat-option>
+                                            <mat-option value="CRISTIANA">CRISTIANA</mat-option>
+                                            <mat-option value="PROTESTANTE">PROTESTANTE</mat-option>
+                                            <mat-option value="ADVENTISTA">ADVENTISTA</mat-option>
+                                            <mat-option value="TESTIGO DE JEHOVA">TESTIGO DE JEHOVA</mat-option>
+                                            <mat-option value="OTRA">OTRA</mat-option>
+                                        </mat-select> 
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="outline" class="example-full-width">
+                                    <input matInput [matDatepicker]="picker" placeholder="FECHA DE NACIMIENTO" formControlName="fecha_nac" type="date">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker touchUi #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div><!-- termino de columna 11-->
+
+
+                        <div  class="col-md-2  ml-auto mr-auto"> <!-- inicio de columna 12-->
+                            <div>
+                              <section class="example-section">                                                            
+                                <mat-radio-group formControlName="sexo">         
+                                <mat-label class="example-margin">SEXO</mat-label>    <br>                                                              
+                                <mat-radio-button  class="example-margin" value="M" checked='true'>MASCULINO</mat-radio-button><br>                                   
+                                <mat-radio-button  class="example-margin" value="F">FEMENINO</mat-radio-button>
+                                </mat-radio-group>
+                              </section>
+                            </div>
+
+                        </div>  <!-- inicio de columna 12-->
+
+                        <div  class="col-md-2  ml-auto mr-auto"> <!-- inicio de columna 13-->
+                            <div>
+                                <section class="example-section">                                                            
+                                  <mat-radio-group >         
+                                  <mat-label class="example-margin">TIPO DE NACIMIENTO</mat-label>    <br>                                                              
+                                  <mat-radio-button class="example-margin" value="A" checked='true'>A TÉRMINO</mat-radio-button><br>                                   
+                                  <mat-radio-button class="example-margin" value="P">PREMATURO</mat-radio-button>
+                                  </mat-radio-group>
+                                </section>
+                              </div>
+                        </div>  <!-- inicio de columna 13-->
+
+                        
+                        
+                    </div> <!-- termino de celda 1-->  
+                    
+                    <div class="fila ml-auto mr-auto">
+                        <button mat-raised-button type="submit" class="btn-registrar">  REGISTRAR </button>
+                    </div >
+
+                      <div class="clearfix"></div>
+                    
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

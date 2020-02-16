@@ -1,0 +1,185 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Pacientes</h4>
+                      <p class="card-category">Liste pacientes y registre sus exámenes</p>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="places-buttons">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto text-center">
+                                <h4 class="card-title">
+                                    Identifique Pacientes por Zona
+                                    <p class="category"></p>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                                <div class="row">
+
+                                    <div class="fila ml-auto mr-auto" >
+                                        <section class="example-section">
+                                            <mat-checkbox class="example-margin" [(ngModel)]="disabled" >TODOS</mat-checkbox>
+                                          </section>
+                                    </div>
+                                          
+                                    <div class="col-md-2" >
+                                        <mat-form-field appearance="outline" >
+                                        <mat-label>DEPARTAMENTO</mat-label>
+                                            <mat-select [disabled]="disabled"  *ngIf="valorDepartamento == 0" [(value)]="valorDepartamento" (selectionChange)="cargarprovincias()" >
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa" >
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>    
+
+                                            <mat-select [disabled]="disabled" *ngIf="valorDepartamento > 0" [(value)]="valorDepartamento"  (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa">
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>                    
+                                            
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>PROVINCIA</mat-label>
+                                            <mat-select [disabled]="disabled" *ngIf="valorProvincia == 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+                                            
+                                            <mat-select [disabled]="disabled" *ngIf="valorProvincia > 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-2">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>DISTRITO</mat-label>
+                                            <mat-select [disabled]="disabled" *ngIf="valorDistrito == 0"  [(value)]="valorDistrito" (selectionChange)="cargarzonas()">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+
+                                            <mat-select [disabled]="disabled" *ngIf="valorDistrito > 0" [(value)]="valorDistrito" (selectionChange)="cargarzonas()">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+
+
+                                    <div class="col-md-2">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>ZONA</mat-label>
+                                            <mat-select [disabled]="disabled" *ngIf="valorZona == 0"  [(value)]="valorZona" (selectionChange)="guardarzona()">
+                                                <mat-option *ngFor="let zona of zonas" [(value)]="zona.idzona" >
+                                                    {{zona.nombrezona}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                            <mat-select [disabled]="disabled" *ngIf="valorZona > 0"  [(value)]="valorZona" (selectionChange)="guardarzona()">
+                                                <mat-option *ngFor="let zona of zonas" [(value)]="zona.idzona" >
+                                                    {{zona.nombrezona}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button mat-raised-button class="btn-registrar" (click)='listar()' >Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                            <table class="table">
+                              <thead class=" text-primary">
+                                  <th>ZONA</th>
+                                  <th>DNI PACIENTE</th>
+                                  <th>NOMBRES</th>
+                                  <th>APELLIDOS</th>
+                                  <th>SEXO</th>
+                                  <th>RELIGION</th>
+                                  <th>SEGURO</th>
+                                  <th>DOMICILIO</th>
+                                  <th>FECHA NACIMIENTO</th>
+                                  <th>EDAD</th>
+                                  <th>TIPO NACIMIENTO</th>
+                                  <th>PESO EXAMEN-1</th>
+                                  <th>TALLA EXAMEN-1</th>
+                                  <th>IMC EXAMEN-1</th>
+                                  <th>HEMATOCRITO EXAMEN-1</th>
+                                  <th>HEMOGLOBINA EXAMEN-1</th>
+                                  <th>RESULTADO EXAMEN-1</th>
+                                  <th>FECHA EXAMEN-1</th>
+                                  <th>PESO EXAMEN-2</th>
+                                  <th>TALLA EXAMEN-2</th>
+                                  <th>IMC EXAMEN-2</th>
+                                  <th>HEMATOCRITO EXAMEN-2</th>
+                                  <th>HEMOGLOBINA EXAMEN-2</th>
+                                  <th>RESULTADO EXAMEN-2</th>
+                                  <th>FECHA EXAMEN-2</th>
+
+                              </thead>
+                              <tbody>
+                                    <tr *ngFor= "let reporte of reportes" >
+                                        <td>{{reporte.zona}}</td>
+                                        <td>{{reporte.dni_paciente}}</td>
+                                        <td>{{reporte.nombre}}</td>
+                                        <td>{{reporte.apellidos}}</td>
+                                        <td>{{reporte.sexo}}</td>
+                                        <td>{{reporte.religion}}</td>
+                                        <td>{{reporte.seguro}}</td>
+                                        <td>{{reporte.domicilio}}</td>
+                                        <td type="date">{{reporte.fecha_nac}}</td>
+                                        <td>{{reporte.edad}}</td>
+                                        <td>{{reporte.tipo_nacimiento}}</td>
+                                        <td>{{reporte.peso_ini}}</td>
+                                        <td>{{reporte.talla_ini}}</td>
+                                        <td>{{reporte.imc_ini}}</td>
+                                        <td>{{reporte.hematocrito_ini}}</td>
+                                        <td>{{reporte.hemoglobina_ini}}</td>
+                                        <td>{{reporte.resultado_ini}}</td>
+                                        <td>{{reporte.fecha_ini}}</td>
+                                        <td>{{reporte.peso_fin}}</td>
+                                        <td>{{reporte.talla_fin}}</td>
+                                        <td>{{reporte.imc_fin}}</td>
+                                        <td>{{reporte.hematocrito_fin}}</td>
+                                        <td>{{reporte.hemoglobina_fin}}</td>
+                                        <td>{{reporte.resultado_fin}}</td>
+                                        <td>{{reporte.fecha_fin}}</td>
+                                     </tr>
+                                 </tbody>
+                             </table>
+                      </div>
+
+                      <div class="filita ml-auto mr-auto">
+                        <button mat-raised-button class="btn btn-success" (click)="exportar()" >EXPORTAR A EXCEL</button>
+                     </div>
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

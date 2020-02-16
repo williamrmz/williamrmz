@@ -1,0 +1,94 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-10">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Registro de Paciente</h4>
+                      <p class="card-category"></p>
+                  </div>                  
+                  <div class="col-md-18">
+                    <form [formGroup]="" (ngSubmit)="3"> 
+                  
+
+
+
+                  <div class="card-body   container" >
+                    
+                      <div class="row  ml-auto mr-auto xd" > <!-- inicio de celda 1-->                
+                        <div class="col-md-4  "> <!-- inicio de columna 10-->
+                          <div class="row-md-3">
+                              <mat-form-field appearance="outline" class="example-full-width" >
+                                <mat-label>DNI</mat-label>
+                                <input matInput type="text" required formControlName="dni_usuario">
+                              </mat-form-field>
+                          </div>
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>NOMBRE</mat-label>
+                              <input matInput  type="text" required formControlName="nombre" oninput="this.value = this.value.toUpperCase()">
+                            </mat-form-field>
+                          </div>
+                          <!--
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>APELLIDO</mat-label>
+                              <input matInput  type="text" required formControlName="apellido">
+                            </mat-form-field>                            
+                          </div> -->     
+                        </div> <!-- termino de columna 10-->
+
+
+                       
+                         <div class="col-md-4  ml-auto mr-auto"> <!-- inicio de columna 11-->
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>CORREO</mat-label>
+                              <input matInput  type="text" required formControlName="email"  type="email">
+                            </mat-form-field>                            
+                          </div>
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>CLAVE</mat-label>
+                              <input matInput  type="text" required formControlName="clave" type="password">
+                            </mat-form-field>                            
+                          </div>
+                        </div><!-- termino de columna 11-->
+
+                        <div class="col-md-4  ml-auto mr-auto"> <!-- inicio de columna 11-->
+                          <div class="row-md-3">
+                            <mat-form-field appearance="outline" class="example-full-width" >
+                              <mat-label>ESTADO</mat-label>
+                              <input matInput   placeholder="ESTADO" value="ACTIVO" disabled >
+                            </mat-form-field>                            
+                          </div>
+                          <div class="row-md-3">
+                            <div>
+                              <mat-form-field appearance="outline">
+                                  <mat-label>TIPO DE USUARIO</mat-label>
+                                      <mat-select  formControlName="tipo">
+                                          <mat-option value="U">USUARIO COMÚN</mat-option>
+                                          <mat-option value="A">ADMINISTRADOR</mat-option>
+                                      </mat-select> 
+                              </mat-form-field>
+                          </div>                            
+                          </div>
+                        </div><!-- termino de columna 11-->
+
+                        
+                        
+                    </div> <!-- termino de celda 1-->  
+                    
+                    <div class="fila ml-auto mr-auto">
+                        <button mat-raised-button type="submit" class="btn-registrar">  REGISTRAR </button>
+                    </div >
+
+                      <div class="clearfix"></div>
+                    
+                  </div>
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

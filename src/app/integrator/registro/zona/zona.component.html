@@ -1,0 +1,104 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-10">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Registro de Paciente</h4>
+                      <p class="card-category"></p>
+                  </div>                  
+                  <div class="col-md-18">
+                    <form [formGroup]="zonaForm" (ngSubmit)="registrarZona(zonaForm.value)"> 
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto text-center">
+                                <h4 class="card-title">
+                                    <p class="category"></p>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-9 ml-auto mr-auto" >
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Departamento</mat-label>
+                                            <mat-select  *ngIf="valorDepartamento == 0" [(value)]="valorDepartamento" (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa" >
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>    
+
+                                            <mat-select *ngIf="valorDepartamento > 0" [(value)]="valorDepartamento"  (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa">
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>                    
+                                            
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3">
+
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Provincia</mat-label>
+                                            <mat-select *ngIf="valorProvincia == 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+                                            
+                                            <mat-select *ngIf="valorProvincia > 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-3">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>Distrito</mat-label>
+                                            <mat-select *ngIf="valorDistrito == 0"  [(value)]="valorDistrito">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+
+                                            <mat-select *ngIf="valorDistrito > 0" [(value)]="valorDistrito">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+
+
+                                    <div class="col-md-3">
+                                      <mat-form-field appearance="outline" class="example-full-width" >
+                                        <mat-label>NOMBRE DE ZONA</mat-label>
+                                        <input matInput type="text" required formControlName="nombrezona" [(value)]="nombrezona" oninput="this.value = this.value.toUpperCase()">
+                                      </mat-form-field>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+
+                  <div class="fila ml-auto mr-auto">
+                    <button mat-raised-button type="submit" class="btn-registrar">  REGISTRAR </button>
+                    <br><br>
+                </div >
+
+                </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

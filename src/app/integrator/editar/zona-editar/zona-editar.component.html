@@ -1,0 +1,21 @@
+<div class="animated pulse">
+  <div class="container-fluid">
+      <div class="card">
+          <div class="card-header card-header-info">
+          <h4 class="card-title">EDITAR A LA ZONA: {{data.nombrezona}}</h4>
+              <p class="card-category"></p>
+          </div>
+          <div class="card-body   container" >
+            <form [formGroup]="zonaForm" (ngSubmit)="editar(zonaForm.value)">   
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>NOMBRE DE LA ZONA</mat-label>
+                <input matInput type="text" required formControlName="nombrezona" value={{nombrezona}}>
+              </mat-form-field>
+              
+              <button mat-raised-button type="submit" class="btn-block btn-primary" >EDITAR</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>

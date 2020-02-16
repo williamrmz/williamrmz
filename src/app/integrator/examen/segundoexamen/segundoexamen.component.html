@@ -1,0 +1,51 @@
+<div class="animated pulse">
+  <div class="container-fluid">
+      <div class="card">
+          <div class="card-header card-header-info">
+          <h4 class="card-title">Registro del Segundo Examen Del Paciente: {{data.nombre}}</h4>
+              <p class="card-category"></p>
+          </div>
+          <div class="card-body   container" >
+            <form [formGroup]="examenForm" (ngSubmit)="registrarExamen(examenForm.value)">   
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>PESO</mat-label>
+                <input matInput type="text" required formControlName="peso_fin" value={{peso_fin}}>
+              </mat-form-field>
+            
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>TALLA</mat-label>
+                <input matInput  type="text" required formControlName="talla_fin"  value={{talla_fin}}>
+              </mat-form-field>
+            
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>HEMOGLOBINA</mat-label>
+                <input matInput  type="text" required formControlName="hemoglobina_fin" #hemo (keyup)="onKey(hemo.value)">
+              </mat-form-field>   
+
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>HEMATOCRITO</mat-label>
+                <input matInput  type="text" formControlName="hematocrito_fin" value={{hematocrito}}>
+              </mat-form-field>              
+              
+              <!-- <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>RESULTADO</mat-label>
+                <input matInput  type="text" required formControlName="resultado_fin" value={{resultado}}>
+              </mat-form-field>     
+              -->
+
+              <mat-form-field appearance="outline" >
+                <mat-label>RESULTADO</mat-label>
+                    <mat-select [(value)]="valorTipo" required>
+                        <mat-option *ngFor="let tipo of tipos" [(value)]="tipo.valor" >
+                            {{tipo.nombre}}
+                        </mat-option> 
+                    </mat-select>
+                </mat-form-field>
+              
+              <button mat-raised-button type="submit" class="btn-block btn-primary" >REGISTRAR</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>

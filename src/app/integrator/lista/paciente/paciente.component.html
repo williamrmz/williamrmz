@@ -1,0 +1,154 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-info">
+                      <h4 class="card-title ">Pacientes</h4>
+                      <p class="card-category">Liste pacientes y registre sus exámenes</p>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="places-buttons">
+                        <div class="row">
+                            <div class="col-md-6 ml-auto mr-auto text-center">
+                                <h4 class="card-title">
+                                    Identifique Pacientes por Zona
+                                    <p class="category"></p>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8 col-md-10 ml-auto mr-auto">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>DEPARTAMENTO</mat-label>
+                                            <mat-select  *ngIf="valorDepartamento == 0" [(value)]="valorDepartamento" (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa" >
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>    
+
+                                            <mat-select *ngIf="valorDepartamento > 0" [(value)]="valorDepartamento"  (selectionChange)="cargarprovincias()">
+                                                <mat-option *ngFor="let departamento of departamentos" [value]="departamento.iddepa">
+                                                    {{departamento.nombredepa}}
+                                                </mat-option>
+                                            </mat-select>                    
+                                            
+                                            
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>PROVINCIA</mat-label>
+                                            <mat-select *ngIf="valorProvincia == 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+                                            
+                                            <mat-select *ngIf="valorProvincia > 0" [(value)]="valorProvincia" (selectionChange)="cargardistritos()">
+                                                <mat-option *ngFor="let provincia of provincias" [(value)]="provincia.idpro" >
+                                                    {{provincia.nombrepro}}
+                                                </mat-option>                                         
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+
+
+
+
+                                    <div class="col-md-2">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>DISTRITO</mat-label>
+                                            <mat-select *ngIf="valorDistrito == 0"  [(value)]="valorDistrito" (selectionChange)="cargarzonas()">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+
+                                            <mat-select *ngIf="valorDistrito > 0" [(value)]="valorDistrito" (selectionChange)="cargarzonas()">
+                                                <mat-option *ngFor="let distrito of distritos" [(value)]="distrito.iddis" >
+                                                    {{distrito.nombredis}}
+                                                </mat-option> 
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+
+
+
+                                    <div class="col-md-2">
+                                        <mat-form-field appearance="outline">
+                                        <mat-label>ZONA</mat-label>
+                                            <mat-select *ngIf="valorZona == 0"  [(value)]="valorZona" (selectionChange)="guardarzona()">
+                                                <mat-option *ngFor="let zona of zonas" [(value)]="zona.idzona" >
+                                                    {{zona.nombrezona}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                            <mat-select *ngIf="valorZona > 0"  [(value)]="valorZona" (selectionChange)="guardarzona()">
+                                                <mat-option *ngFor="let zona of zonas" [(value)]="zona.idzona" >
+                                                    {{zona.nombrezona}}
+                                                </mat-option>
+                                            </mat-select>
+
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button mat-raised-button class="btn-registrar" (click)='listarPorZona()' >Buscar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                  </div>
+                  <div class="card-body">
+                      <div class="table-responsive">
+                          <table class="table" >
+                              <thead class=" text-primary">
+                                  <th>DNI</th>
+                                  <th>NOMBRE</th>
+                                  <th>APELLIDOS</th>
+                                  <th>SEXO</th>
+                                  <th>FECHA NACIMIENTO</th>
+                                  <th>EDAD</th>
+                                  <th>1° EXAMEN</th>
+                                  <th>2° EXAMEN</th>
+                                  <th>EDITAR</th>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor= "let paciente of pacientes" >
+                                   <!-- XDDD <app-primerexamen [paciente]="paciente.nombre"> </app-primerexamen> -->
+                                      <td>{{paciente.dni_paciente}}</td>
+                                      <td>{{paciente.nombre}}</td>
+                                      <td>{{paciente.apellido}}</td>
+                                      <td>{{paciente.sexo}}</td> 
+                                      <td type="date">{{paciente.fecha_nac}}</td>
+                                      <td *ngIf="paciente.edad >12 && paciente.fraccion>=0.5"> {{(paciente.edad/12)-1 | number :'2.0-0'}} Años</td>
+                                      <td *ngIf="paciente.edad >12 && paciente.fraccion<0.5"> {{paciente.edad/12| number :'2.0-0'}} Años</td>
+                                      <td *ngIf="paciente.edad <=12">{{paciente.edad}} Meses</td>
+                                      <td *ngIf=" paciente.resultado_ini == '-'">
+                                        <button mat-raised-button class="btn btn-success" (click)='primerExamen(paciente)' >Examen</button>
+                                      </td>
+                                      <td *ngIf=" paciente.resultado_ini != '-'">{{paciente.resultado_ini}}</td>
+                                      <td *ngIf=" paciente.resultado_fin == '-'">
+                                        <button mat-raised-button class="btn btn-info"  (click)='segundoExamen(paciente)'>Examen</button>
+                                      </td>
+                                      <td *ngIf=" paciente.resultado_fin != '-'">{{paciente.resultado_fin}}</td>
+                                      <td >
+                                        <button mat-raised-button class="btn-link" (click)='editarPaciente(paciente)'  ><i class="material-icons">edit</i>
+
+                                        </button>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                     
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="animated zoomInUp">
+  <div class="container-fluid">
+      <div class="card">
+          <div class="card-header card-header-info">
+          <h4 class="card-title">EDITAR AL PACIENTE: {{data.nombre}}</h4>
+              <p class="card-category"></p>
+          </div>
+          <div class="card-body   container" >
+            <form [formGroup]="pacienteForm" (ngSubmit)="editar(pacienteForm.value)">   
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>NOMBRE</mat-label>
+                <input matInput type="text" required formControlName="nombre" value={{nombre}}>
+              </mat-form-field>
+            
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>APELLIDOS</mat-label>
+                <input matInput  type="text" required formControlName="apellido"  value={{apellido}}>
+              </mat-form-field>
+            
+              <mat-form-field class="example-full-width" appearance="outline" >
+                <mat-label>DOMICILIO</mat-label>
+                <input matInput  type="text" required formControlName="domicilio" value={{domicilio}}>
+              </mat-form-field>   
+
+              
+              <button mat-raised-button type="submit" class="btn-block btn-primary" >EDITAR</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+      </div>
+  </div>
+</div>
