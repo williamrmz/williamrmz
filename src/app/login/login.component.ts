@@ -54,8 +54,6 @@ export class LoginComponent implements OnInit {
             timer: 1500
           });
         }
-        console.log(form)
-       console.log(res[0].estado)
         //this.ngOnInit();
       },
     )
