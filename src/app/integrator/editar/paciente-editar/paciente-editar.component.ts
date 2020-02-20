@@ -5,6 +5,7 @@ import { PacienteService } from 'app/services/paciente.service';
 import { Paciente } from 'app/models/Paciente';
 import  Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-paciente-editar',
@@ -18,7 +19,7 @@ export class PacienteEditarComponent implements OnInit {
   domicilio: string = this.data.domicilio;
 
   constructor(public dialogRef: MatDialogRef<PacienteEditarComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any, private pacienteService : PacienteService, public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private pacienteService : PacienteService, public dialog: MatDialog,private spinner: NgxSpinnerService) { }
 
 
     pacienteForm = new FormGroup(
@@ -36,9 +37,10 @@ export class PacienteEditarComponent implements OnInit {
 
 
   editar(form: Paciente){
+    this.spinner.show();
 
     if(form.nombre=="" || form.apellido== ""){
-      
+      this.spinner.hide();      
       Swal.fire({
         icon: 'error',
         title: 'Error...',
@@ -49,7 +51,7 @@ export class PacienteEditarComponent implements OnInit {
   }else{
       this.pacienteService.getEditarPaciente(form).subscribe(
         res =>{        
-          //console.log(res);
+          this.spinner.hide();
           Swal.fire({
             icon: 'success',
             title: 'Se editó al paciente',
@@ -57,7 +59,6 @@ export class PacienteEditarComponent implements OnInit {
             timer: 1500
           });
           this.dialog.closeAll();
-        
 
         },
         err => console.log(err)

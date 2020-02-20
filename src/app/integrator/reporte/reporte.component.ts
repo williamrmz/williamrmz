@@ -6,6 +6,7 @@ import { Distrito } from 'app/models/Distrito';
 import { Zona } from 'app/models/Zona';
 import { ReporteService } from '../../services/reporte.service';
 import {MatTableDataSource} from '@angular/material/table';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 export interface PeriodicElement {
@@ -51,15 +52,15 @@ export class ReporteComponent implements OnInit {
 
   
   
-  constructor(private ubigeoService : UbigeoService, private reporteService : ReporteService) { }
+  constructor(private ubigeoService : UbigeoService, private reporteService : ReporteService, private spinner: NgxSpinnerService    ) { }
 
   ngOnInit() {
-
+    this.spinner.show();
     this.reporteService.getReporte().subscribe(
       res => {
         this.reportes = res;
         this.dataSource.data = res;
-        console.log(res)
+        this.spinner.hide();
       },
       err => console.log(err)
     );
@@ -146,13 +147,14 @@ export class ReporteComponent implements OnInit {
 
   
   listar(){
+    this.spinner.show();
     this.zona = {"idzona":  this.valorZona};
     if(this.disabled){
       this.reporteService.getReporte().subscribe(
         res => {
           this.reportes = res;
           this.dataSource.data = res;
-          console.log(res);
+          this.spinner.hide();
         },
         err => console.log(err)
       );
@@ -161,7 +163,7 @@ export class ReporteComponent implements OnInit {
         res => {
           this.reportes = res;
           this.dataSource.data = res;
-          console.log(res);
+          this.spinner.hide();
         },
         err => console.log(err)
       );

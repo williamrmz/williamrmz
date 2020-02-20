@@ -3,6 +3,7 @@ import { UbigeoService } from '../../../services/ubigeo.service';
 import { Zona } from 'app/models/Zona';
 import { MatDialog } from '@angular/material';
 import { ZonaEditarComponent } from 'app/integrator/editar/zona-editar/zona-editar.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-zona',
@@ -11,14 +12,15 @@ import { ZonaEditarComponent } from 'app/integrator/editar/zona-editar/zona-edit
 })
 export class ListarZonaComponent implements OnInit {
 
-  constructor(private ubigeoService: UbigeoService, public dialog: MatDialog,) { }
+  constructor(private ubigeoService: UbigeoService, public dialog: MatDialog,private spinner: NgxSpinnerService) { }
   zonas: Zona;
 
   ngOnInit() {
+    this.spinner.show();
     this.ubigeoService.todaZona().subscribe(
       res => {
         this.zonas = res;
-        console.log(res)
+        this.spinner.hide();
       },
       err => console.log(err)
     );

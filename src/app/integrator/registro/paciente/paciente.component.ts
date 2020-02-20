@@ -7,6 +7,7 @@ import { Distrito } from 'app/models/Distrito';
 import { Zona } from 'app/models/Zona';
 import { Paciente } from 'app/models/Paciente';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class PacienteComponent implements OnInit {
 
   
 
-  constructor(private ubigeoService : UbigeoService, private pacienteService: PacienteService) { }
+  constructor(private ubigeoService : UbigeoService, private pacienteService: PacienteService, private spinner: NgxSpinnerService
+    ) { }
 
 
   pacienteForm = new FormGroup(
@@ -127,6 +129,7 @@ export class PacienteComponent implements OnInit {
 
 
   registrarPaciente(form: Paciente){
+    this.spinner.show();
     if (form.domicilio == '') {
         form.domicilio = 'NINGUNA'
     }
@@ -139,7 +142,7 @@ export class PacienteComponent implements OnInit {
 
     
     if(form.nombre=="" || form.apellido== "" || form.fecha_nac==""){
-      
+      this.spinner.hide();
         Swal.fire({
           icon: 'error',
           title: 'Error...',
@@ -148,6 +151,7 @@ export class PacienteComponent implements OnInit {
           timer: 2000
         })
     }else if(form.idzona.toString()=="" || !localStorage.getItem("zona")){
+      this.spinner.hide();
       Swal.fire({
         icon: 'error',
         title: 'Error...',
@@ -156,6 +160,7 @@ export class PacienteComponent implements OnInit {
         timer: 2000
       })
     }else if(form.dni_paciente.length !=8){
+      this.spinner.hide();
       Swal.fire({
         icon: 'error',
         title: 'Error...',
@@ -166,8 +171,8 @@ export class PacienteComponent implements OnInit {
     }    
     else{
       this.pacienteService.regPaciente(form).subscribe(
-        res =>{        
-          console.log(res);
+        res =>{                  
+          this.spinner.hide();
           Swal.fire({
             icon: 'success',
             title: 'Usuario registrado',
@@ -175,6 +180,7 @@ export class PacienteComponent implements OnInit {
             timer: 1500
           });
           this.ngOnInit();
+
         },
         err => console.log(err)
       );

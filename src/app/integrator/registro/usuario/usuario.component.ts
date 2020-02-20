@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from 'app/models/Usuario';
 import { UsuarioService } from 'app/services/usuario.service';
 import  Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-usuario',
@@ -11,7 +13,7 @@ import  Swal from 'sweetalert2';
 })
 export class UsuarioComponent implements OnInit {
 
-  constructor(private usuarioService: UsuarioService) { }
+  constructor(private usuarioService: UsuarioService, private spinner: NgxSpinnerService) { }
 
   usuarioForm = new FormGroup(
     {
@@ -28,9 +30,11 @@ export class UsuarioComponent implements OnInit {
   }
 
   registrarPaciente(form: Usuario){
+    this.spinner.show();
 
     if(form.nombre=="" || form.email=="" || form.clave=="")
     {
+      this.spinner.hide();
       Swal.fire({
         icon: 'error',
         title: 'Error...',
@@ -40,6 +44,7 @@ export class UsuarioComponent implements OnInit {
       })
     }else if(form.dni_usuario.length !=8)
       {
+        this.spinner.hide();
         Swal.fire({
           icon: 'error',
           title: 'Error...',
@@ -51,13 +56,14 @@ export class UsuarioComponent implements OnInit {
     else{
       this.usuarioService.regUsuario(form).subscribe(
         res =>{        
-          console.log(res);
+          this.spinner.hide();
           Swal.fire({
             icon: 'success',
             title: `El usuario de ${form.nombre} ha sido registrado`,
             showConfirmButton: false,
             timer: 1500
           });
+          
           this.ngOnInit();
         },
         err => console.log(err)

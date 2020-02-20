@@ -5,6 +5,7 @@ import { Examenervice } from 'app/services/examen.service';
 import { Examen } from 'app/models/Examen';
 import  Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -23,7 +24,10 @@ export class PrimerexamenComponent implements OnInit {
   valorTipo: string="";
   tipos: any;
   constructor(public dialogRef: MatDialogRef<PrimerexamenComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any, private examenService : Examenervice, public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, 
+    private examenService : Examenervice, 
+    public dialog: MatDialog,
+    private spinner: NgxSpinnerService) { }
 
   examenForm = new FormGroup(
     {
@@ -58,31 +62,33 @@ export class PrimerexamenComponent implements OnInit {
     let sangre= parseFloat(value);
     let edad = this.data.edad;
     let sexo = this.data.sexo;    
-    if (sangre < 13.5 && edad<2 )
+    console.log(edad.toString(), sexo)
+      //////////////////////////// MENOR A 2 MESES
+      if (sangre < 13.5 && edad<2 )
       {
           //this.resultado="ANEMIA";
           this.valorTipo='A';
       }
-      else if ((sangre >= 13.5 && sangre <= 18.5) && edad<2 )
+      else if (sangre >= 13.5 && edad<2 )
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
       }
-      //////////////////////////// DE 2 A 5 MESES
 
-      else if ((sangre >= 9.5 && sangre <= 13.5) && (edad>=2 && edad<=5))
+      //////////////////////////// DE 2 A 5 MESES
+      else if (sangre >= 9.5  && (edad>=2 && edad<=5))
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
       }
-      else if (sangre < 9.5 && edad>=2 && edad<=5)
+      else if (sangre < 9.5 && (edad>=2 && edad<=5))
       {
           //this.resultado="ANEMIA";
           this.valorTipo='A';
       }
 
       ////////////////HASTA 4 AÑOS
-      else if ((sangre >= 11.0 && sangre <= 14.0) && (edad>=6 && edad<60))
+      else if (sangre >= 11.0  && (edad>=6 && edad<60))
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
@@ -97,14 +103,14 @@ export class PrimerexamenComponent implements OnInit {
           //this.resultado="ANEMIA MODERADA";
           this.valorTipo='M';
       }
-      else if ((sangre <= 7.0) && (edad>=6 && edad<59))
+      else if ((sangre <= 7.0) && (edad>=6 && edad<60))
       {
           //this.resultado="ANEMIA SEVERA";
           this.valorTipo='S';
       }
 
       ////////////////DE 5 A 11 AÑOS
-      else if ((sangre >= 11.5 && sangre <= 15.5) && (edad>=60 && edad<132))
+      else if (sangre >= 11.5 && (edad>=60 && edad<132))
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
@@ -119,14 +125,14 @@ export class PrimerexamenComponent implements OnInit {
           //this.resultado="ANEMIA MODERADA";
           this.valorTipo='M';
       }
-      else if ((sangre <= 8.0) && (edad>=6 && edad<59))
+      else if ((sangre <= 8.0) && (edad>=60 && edad<132))
       {
           //this.resultado="ANEMIA SEVERA";
           this.valorTipo='S';
       }
 
       ////////////////DE 11 A 14 AÑOS
-      else if ((sangre >= 12) && (edad>=132 && edad<168))
+      else if (sangre >= 12 && (edad>=132 && edad<168))
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
@@ -141,29 +147,29 @@ export class PrimerexamenComponent implements OnInit {
           //this.resultado="ANEMIA MODERADA";
           this.valorTipo='M';
       }
-      else if ((sangre <= 8.0) && (edad>=132 && edad<59))
+      else if ((sangre <= 8.0) && (edad>=132 && edad<168))
       {
           //this.resultado="ANEMIA SEVERA";
           this.valorTipo='S';
       }
 
       ////////////////DE 15 A MÁS HOMBRES
-      else if (sangre >= 13 && edad>=168 && sexo==("M"))
+      else if (sangre >= 13 && edad>=168 && sexo==("MASCULINO"))
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
       }
-      else if ((sangre >= 11.0 && sangre <= 12.9) && edad>=168 && sexo==("M"))
+      else if ((sangre >= 11.0 && sangre <= 12.9) && edad>=168 && sexo==("MASCULINO"))
       {
           //this.resultado="ANEMIA LEVE";
           this.valorTipo='L';
       }
-      else if ((sangre >= 8.0 && sangre <= 10.9) && (edad>=168) && sexo==("M"))
+      else if ((sangre >= 8.0 && sangre <= 10.9) && (edad>=168) && sexo==("MASCULINO"))
       {
           //this.resultado="ANEMIA MODERADA";
           this.valorTipo='M';
       }
-      else if ((sangre <= 8.0) && (edad>=168) && sexo==("M"))
+      else if ((sangre <= 8.0) && (edad>=168) && sexo==("MASCULINO"))
       {
           //this.resultado="ANEMIA SEVERA";
           this.valorTipo='S';
@@ -171,22 +177,22 @@ export class PrimerexamenComponent implements OnInit {
 
 
       ////////////////DE 15 A MÁS MUJERES
-      else if ((sangre >= 12) && (edad>=168) && sexo==("F"))
+      else if (sangre >= 12 && edad>=168 && sexo==("FEMENINO"))
       {
           //this.resultado="NORMAL";
           this.valorTipo='N';
       }
-      else if ((sangre >= 11.0 && sangre <= 12.9) && (edad>=168) && sexo==("F"))
+      else if ((sangre >= 11.0 && sangre <= 11.9) && (edad>=168) && sexo==("FEMENINO"))
       {
           //this.resultado="ANEMIA LEVE";
           this.valorTipo='L';
       }
-      else if ((sangre >= 8.0 && sangre <= 10.9) && (edad>=168) && sexo==("F"))
+      else if ((sangre >= 8.0 && sangre <= 10.9) && (edad>=168) && sexo==("FEMENINO"))
       {
           //this.resultado="ANEMIA MODERADA";
           this.valorTipo='M';
       }
-      else if ((sangre <= 8.0) && (edad>=168) && sexo==("F") )
+      else if ((sangre < 8.0) && (edad>=168) && sexo==("FEMENINO") )
       {
           //this.resultado="ANEMIA SEVERA";
           this.valorTipo='S';
@@ -202,6 +208,8 @@ export class PrimerexamenComponent implements OnInit {
 
   
   registrarExamen(form: Examen){
+
+    this.spinner.show();
     let sangre= form.hemoglobina_ini;
 
     form.resultado_ini= this.valorTipo;
@@ -230,8 +238,7 @@ export class PrimerexamenComponent implements OnInit {
             timer: 1500
           });
           this.dialog.closeAll();
-        
-
+          this.spinner.hide();
         },
         err => console.log(err)
       );

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Usuario } from 'app/models/Usuario';
 import { SesionService } from 'app/services/sesion.service';
 import  Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,9 @@ export class LoginComponent implements OnInit {
 
   email: string= '';
   clave: string= '';
+  ShowLoading = false;
 
-  constructor(private route: Router, private sesionService: SesionService) { }
+  constructor(private route: Router, private sesionService: SesionService, private spinner: NgxSpinnerService) { }
   loginForm = new FormGroup(
     {
       email: new FormControl('', Validators.required),
@@ -24,10 +26,20 @@ export class LoginComponent implements OnInit {
   );
 
   ngOnInit() {
+    /*this.route.events.subscribe((event:any) => {
+      if (event instanceof NavigationStart) {
+        this.ShowLoading = true;
+         
+     } 
+     if (event instanceof NavigationEnd) {
+        this.ShowLoading = false;
+     }
+  });*/
   }
 
   ingresar(form: Usuario)
   {
+    this.spinner.show();
     this.sesionService.getSesion(form).subscribe(
       res =>{        
         if(res[0].estado==200){
@@ -44,6 +56,7 @@ export class LoginComponent implements OnInit {
           });
           localStorage.setItem("dni", res[0].dni_usuario.toString());
           this.route.navigate(['/dashboard']);
+          this.spinner.hide();
         }else{
           Swal.fire({
             title: `${res[0].nombre}`,
@@ -57,7 +70,7 @@ export class LoginComponent implements OnInit {
         //this.ngOnInit();
       },
     )
-    //this.route.navigate(['/dashboard']);
+    
   }
 
 

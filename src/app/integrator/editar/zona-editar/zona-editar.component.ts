@@ -5,6 +5,7 @@ import { UbigeoService } from 'app/services/ubigeo.service';
 import {  Zona } from 'app/models/Zona';
 import  Swal from 'sweetalert2';
 import { MatDialog } from '@angular/material';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-zona-editar',
@@ -14,7 +15,7 @@ import { MatDialog } from '@angular/material';
 export class ZonaEditarComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ZonaEditarComponent>, 
-    @Inject(MAT_DIALOG_DATA) public data: any, private ubigeoService : UbigeoService, public dialog: MatDialog) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private ubigeoService : UbigeoService, public dialog: MatDialog,private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
   }
@@ -30,9 +31,10 @@ export class ZonaEditarComponent implements OnInit {
 
 
   editar(form: Zona){
+    this.spinner.show();
 
-    if(form.nombrezona== ""){
-      
+    if(form.nombrezona== ""){      
+      this.spinner.hide();
       Swal.fire({
         icon: 'error',
         title: 'Error...',
@@ -42,16 +44,15 @@ export class ZonaEditarComponent implements OnInit {
       })
   }else{
       this.ubigeoService.editarZona(form).subscribe(
-        res =>{        
-          //console.log(res);
+        res =>{                
+          this.spinner.hide();
           Swal.fire({
             icon: 'success',
             title: 'Se editó al paciente',
             showConfirmButton: false,
             timer: 1500
           });
-          this.dialog.closeAll();        
-
+          this.dialog.closeAll();
         },
         err => console.log(err)
       );  

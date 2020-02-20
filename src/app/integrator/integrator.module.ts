@@ -18,7 +18,7 @@ import { PacienteEditarComponent } from './editar/paciente-editar/paciente-edita
 import { UsuarioEditarComponent } from './editar/usuario-editar/usuario-editar.component';
 import { ZonaEditarComponent } from './editar/zona-editar/zona-editar.component';
 import { MaterialModule } from 'app/material/material.module';
-
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 
@@ -29,7 +29,8 @@ import { MaterialModule } from 'app/material/material.module';
     //RouterModule.forRoot(IntegratorRoutes, {onSameUrlNavigation: 'reload'}),
     FormsModule,
     ReactiveFormsModule,
-    MaterialModule
+    MaterialModule,
+    NgxSpinnerModule
   ],
   declarations: [
     DashboardComponent,

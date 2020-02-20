@@ -6,6 +6,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Zona } from 'app/models/Zona';
 import { UbigeoService } from '../../../services/ubigeo.service';
 import  Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-zona',
@@ -31,7 +32,7 @@ export class ZonaComponent implements OnInit {
   nombrezona: string= '';
   
 
-  constructor(private ubigeoService: UbigeoService) { }
+  constructor(private ubigeoService: UbigeoService, private spinner: NgxSpinnerService) { }
 
   zonaForm = new FormGroup(
     {
@@ -91,8 +92,10 @@ export class ZonaComponent implements OnInit {
 
 
   registrarZona(form: Zona){
+    this.spinner.show();
 
     if(form.nombrezona == ""){
+      this.spinner.hide();
       Swal.fire({
         icon: 'error',
         title: 'Error...',
@@ -103,13 +106,13 @@ export class ZonaComponent implements OnInit {
     }else{
       this.ubigeoService.regZona(form).subscribe(
         res =>{        
-          console.log(res);
+          this.spinner.hide();
           Swal.fire({
             icon: 'success',
             title: `La zona ${form.nombrezona} ha sido registrada`,
             showConfirmButton: false,
             timer: 1500
-          });
+          });          
           this.ngOnInit();
         },
         err => console.log(err)

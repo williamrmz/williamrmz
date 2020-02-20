@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material';
 import { PrimerexamenComponent } from '../../examen/primerexamen/primerexamen.component';
 import { SegundoexamenComponent } from '../../examen/segundoexamen/segundoexamen.component';
 import { PacienteEditarComponent } from 'app/integrator/editar/paciente-editar/paciente-editar.component';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-paciente',
@@ -39,14 +40,16 @@ export class ListarPacienteComponent implements OnInit {
     private pacienteService : PacienteService, 
     private ubigeoService : UbigeoService,
     public dialog: MatDialog,
+    private spinner: NgxSpinnerService,
     ) { }
 
   ngOnInit() {
 
+    this.spinner.show();
     this.pacienteService.getPacientes().subscribe(
       res => {
         this.pacientes = res;
-        console.log(res)
+        this.spinner.hide();
       },
       err => console.log(err)
     );

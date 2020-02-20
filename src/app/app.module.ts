@@ -16,6 +16,7 @@ import { IntegratorComponent } from './integrator/integrator.component';
 import { LoginComponent } from './login/login.component';
 import { MaterialModule } from './material/material.module';
 import { VerifyGuard } from './verify.guard';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({  
   imports: [
@@ -30,7 +31,8 @@ import { VerifyGuard } from './verify.guard';
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
     }),
     HttpClientModule,
-    MaterialModule
+    MaterialModule,
+    NgxSpinnerModule
   ],
   
   declarations: [
