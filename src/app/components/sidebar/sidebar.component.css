@@ -4,7 +4,7 @@
   display: block;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding-left: 15px;
+  padding-left: 18px;
   padding-top: 7px;
   margin-bottom: 0;
   list-style: none; }
@@ -16,3 +16,9 @@
     text-decoration: none; }
   .nav-link.disabled {
     color: #6c757d; }
+
+
+.aea {
+  position: static;
+  padding-top: 45px;
+  }

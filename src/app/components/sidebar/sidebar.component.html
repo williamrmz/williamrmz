@@ -67,7 +67,7 @@
                 <p *ngIf="menuItem.children != null"><b>{{menuItem.title}}</b></p>
             </a>
             <div id="{{menuItem.title}}" class="collapse">
-                <ul class="nav" >
+                <ul class="navi" >
                     <li routerLinkActive="active" *ngFor="let child of menuItem.children" class="{{child.class}} nav-item">
                         <a [routerLink]="[child.path]"  class="nav-link" >
                             <i class="material-icons">{{child.icon}}</i>
@@ -77,7 +77,7 @@
                 </ul>       
             </div>            
         </li>
-        <li routerLinkActive="active" class="active-pro nav-item">
+        <li routerLinkActive="active" class="aea nav-item">
             <a class="nav-link" (click)="logOut()" type="button">
                 <i class="material-icons">assignment_return</i>
                 <p><b>Desconectar</b></p>
