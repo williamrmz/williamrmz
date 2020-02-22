@@ -222,7 +222,8 @@ export class SegundoexamenComponent implements OnInit {
     }else{
       this.examenService.regSegundoExamen(form).subscribe(
         res =>{        
-          //console.log(res);
+          //console.log(res);          
+          this.spinner.hide();
           Swal.fire({
             icon: 'success',
             title: 'Se registró el segundo examen',
@@ -230,7 +231,6 @@ export class SegundoexamenComponent implements OnInit {
             timer: 1500
           });
           this.dialog.closeAll();
-          this.spinner.hide();
 
         },
         err => console.log(err)

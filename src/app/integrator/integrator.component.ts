@@ -15,7 +15,6 @@ export class IntegratorComponent implements OnInit {
   private _router: Subscription;
   private lastPoppedUrl: string;
   private yScrollStack: number[] = [];
-  ShowLoading = true;
 
   constructor( public location: Location, private router: Router) {}
 
@@ -40,7 +39,6 @@ export class IntegratorComponent implements OnInit {
              if (event.url != this.lastPoppedUrl){
                  this.yScrollStack.push(window.scrollY);
                 }
-            this.ShowLoading = true;
              
          } else if (event instanceof NavigationEnd) {
              if (event.url == this.lastPoppedUrl) {
@@ -50,7 +48,6 @@ export class IntegratorComponent implements OnInit {
              else{
                  window.scrollTo(0, 0);
                 }
-            this.ShowLoading = false;
          }
       });
       this._router = this.router.events.filter(event => event instanceof NavigationEnd).subscribe((event: NavigationEnd) => {

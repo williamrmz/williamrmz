@@ -42,7 +42,8 @@ export class LoginComponent implements OnInit {
     this.spinner.show();
     this.sesionService.getSesion(form).subscribe(
       res =>{        
-        if(res[0].estado==200){
+        if(res[0].estado==200){          
+          this.spinner.hide();
           Swal.fire({
             title: `Bienvenido ${res[0].nombre}`,
             showConfirmButton: false,
@@ -56,7 +57,6 @@ export class LoginComponent implements OnInit {
           });
           localStorage.setItem("dni", res[0].dni_usuario.toString());
           this.route.navigate(['/dashboard']);
-          this.spinner.hide();
         }else{
           Swal.fire({
             title: `${res[0].nombre}`,
